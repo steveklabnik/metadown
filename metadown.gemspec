@@ -15,6 +15,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Metadown::VERSION
 
+  gem.add_dependency "redcarpet"
+
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "rake"
 end

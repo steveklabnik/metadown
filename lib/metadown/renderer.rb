@@ -1,4 +1,6 @@
+require "redcarpet"
+
 module Metadown
-  class Renderer
+  class Renderer < Redcarpet::Render::HTML
   end
 end
