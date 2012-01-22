@@ -7,9 +7,21 @@ describe Metadown::Renderer do
   end
 
   it "renders markdown" do
-   r = Redcarpet::Markdown.new(subject)
-   r.render("hello world").should eql("<p>hello world</p>\n")
+    r = Redcarpet::Markdown.new(subject)
+    r.render("hello world").should eql("<p>hello world</p>\n")
   end
 
-  it "extracts YAML"
+  it "extracts YAML" do
+    r = Redcarpet::Markdown.new(subject)
+    text = <<-MARKDOWN
+---
+key: "value"
+---
+hello world
+MARKDOWN
+    
+    r.render text
+    
+    subject.metadata.should eql({"key"=>"value"})
+  end
 end
