@@ -1,6 +1,25 @@
 # Metadown
 
-TODO: Write a gem description
+tl;dr... This gem gives you a custom markdown parser that allows you to prefix the
+markdown itself with YAML metadata.
+
+Sometimes, just having plain markdown isn't good enough. Say you're writing
+a blog post, and you want to include some information about the post itself,
+such as the date and time it was posted.  Keeping it in a separate file seems
+like a bad idea, but Markdown doesn't have any good way of doing this.
+
+Enter [Jekyll](https://github.com/mojombo/jekyll). It lets you put some YAML
+at the head of your file:
+
+    ---
+    layout: post
+    title: An Awesome Blog Post
+    ---
+    
+    Four score and seven years ago,
+
+Woudn't that be neat to use on other projects? I thought so too! Hence,
+metadown.
 
 ## Installation
 
@@ -18,7 +37,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Metadown might have the simplest API I've ever written: one method! Just send
+the string with the metadown you want rendered, and boom! You get an object
+back with two attributes: output and metadata.
+
+    require 'metadown'
+    
+    data = Metadown.render("hello world")
+    data.output #=> "<p>hello, world</p>"
+    data.metadata #=> "{}"
+    
+    text = <<-MARKDOWN
+    ---
+    key: "value"
+    ---
+    hello world
+    MARKDOWN
+    
+    data = Metadown.render(text)
+    data.output #=> "<p>hello, world</p>\n"
+    data.metadata #=> {"key" => "value"}
 
 ## Contributing
 
