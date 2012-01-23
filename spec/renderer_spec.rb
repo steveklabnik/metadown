@@ -24,4 +24,10 @@ MARKDOWN
     
     subject.metadata.should eql({"key"=>"value"})
   end
+
+  it "gives {} for no metadata" do
+    Redcarpet::Markdown.new(subject).render("hello world")
+
+    subject.metadata.should eql({})
+  end
 end
