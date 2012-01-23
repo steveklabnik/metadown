@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["steve@steveklabnik.com"]
   gem.description   = %q{This gem gives you a custom markdown parser that allows you to prefix the markdown itself with YAML metadata.}
   gem.summary       = %q{Annotate your Markdown files with metadata.}
-  gem.homepage      = "http://rubydoc.info/github/steveklabnik/metadown/1.0.0/file/README.md"
+  gem.homepage      = "http://rubydoc.info/gems/metadown/file/README.md"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
