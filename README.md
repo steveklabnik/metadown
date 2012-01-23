@@ -1,5 +1,7 @@
 # Metadown
 
+[![Build Status](https://secure.travis-ci.org/steveklabnik/metadown.png)](http://travis-ci.org/steveklabnik/metadown)
+
 tl;dr... This gem gives you a custom markdown parser that allows you to prefix the
 markdown itself with YAML metadata.
 
