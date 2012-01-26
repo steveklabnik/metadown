@@ -1,4 +1,5 @@
 require "metadown/renderer"
+require "metadown/metadata_parser"
 require "metadown/version"
 
 # This module namespaces everything in the gem. It's also where the factory
@@ -11,13 +12,26 @@ module Metadown
   # output.
   Data = Struct.new(:metadata, :output)
 
-  # The render method is a convenient factory. It parses some text via our
-  # Renderer class and Redcarpet's own class, and gives us a Data back.
-  def render(text)
-    renderer = Metadown::Renderer.new
-    markdown = Redcarpet::Markdown.new(renderer)
-    output = markdown.render(text)
-    Data.new(renderer.metadata, output)
+  # The render method is a convenient factory. If we give it text, it
+  # delegates to the classic markdown renderer, otherwise, we can inject
+  # one of our own.
+  def render(text, renderer=nil)
+    return redcarpet_render(text) if renderer.nil?
+
+    metadata = MetadataParser.new(text).parse
+
+    Data.new(metadata, renderer.new { text }.render)
   end
   module_function :render
+
+  # Classic compatiblity mode: fall back to old redcarpet renderer
+  def redcarpet_render(text)
+    renderer = Renderer.new
+    markdown = Redcarpet::Markdown.new(renderer)
+
+    output = markdown.render(text)
+
+    Data.new(renderer.metadata, output)
+  end
+  module_function :redcarpet_render
 end

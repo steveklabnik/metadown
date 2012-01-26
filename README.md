@@ -23,6 +23,9 @@ at the head of your file:
 Woudn't that be neat to use on other projects? I thought so too! Hence,
 metadown.
 
+Furthermore, you don't have to have just markdown. Inject any kind of
+parser you'd like!
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -60,6 +63,17 @@ back with two attributes: output and metadata.
     data.output #=> "<p>hello, world</p>\n"
     data.metadata #=> {"key" => "value"}
 
+If you don't want to use Markdown, I assume you're using a Tilt
+template of some kind:
+
+    require 'metadown'
+    require 'erb'
+    require 'tilt'
+    
+    data = Metadown.render("<h1><%= 'Hi' %></h1>", Tilt::ERBTemplate)
+    data.output #=> "<h1>Hi</h1>"
+    data.metadata #=> "{}"
+    
 ## Contributing
 
 1. Fork it
