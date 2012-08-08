@@ -63,16 +63,32 @@ back with two attributes: output and metadata.
     data.output #=> "<p>hello, world</p>\n"
     data.metadata #=> {"key" => "value"}
 
-If you don't want to use Markdown, I assume you're using a Tilt
-template of some kind:
+The default Markdown parser Metadown uses is pretty simple. If you'd
+like to change it, you can inject your own in the standard Redcarpet 
+fashion. Here's an example with code highlighting using Pygments.
 
-    require 'metadown'
-    require 'erb'
-    require 'tilt'
-    
-    data = Metadown.render("<h1><%= 'Hi' %></h1>", Tilt::ERBTemplate)
-    data.output #=> "<h1>Hi</h1>"
-    data.metadata #=> "{}"
+```ruby
+class HTMLwithPygments < Metadown::Renderer
+  def block_code(code, language)
+    Pygments.highlight(code, :lexer => language)
+  end
+end
+```
+
+Then use it with Metadown like this:
+
+```ruby
+require 'metadown'
+require 'html_with_pygments'
+
+renderer = Redcarpet::Markdown.new(HTMLwithPygments, :fenced_code_blocks => true)
+data = Metadown.render("```ruby\nself\n```", renderer)
+data.output   #=> "<div class=\"highlight\"><pre><span class=\"nb\">self</span>\n</pre>\n</div>\n"
+data.metadata #=> "{}"
+```
+
+The Redcarpet [README](https://github.com/vmg/redcarpet/blob/master/README.markdown)
+has more examples on how to customize your Markdown rendering.
     
 ## Contributing
 
