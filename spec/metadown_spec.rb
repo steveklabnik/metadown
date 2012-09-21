@@ -20,12 +20,12 @@ MARKDOWN
   end
 
   it "allows you to inject a parser" do
-    parser = stub(:new => stub(:render => "wat"))
+    parser = double :render => "<p>hello world</p>"
 
     Metadown.render(text, parser).tap do |data|
       data.should be_kind_of(Metadown::Data)
       data.metadata.should eql({"key" => "value"})
-      data.output.should eql("wat")
+      data.output.should eql("<p>hello world</p>")
     end
   end
 end
