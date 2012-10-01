@@ -7,7 +7,7 @@ require "metadown/version"
 module Metadown
 
   # This struct is what gets returned from a call to #render.
-  # 
+  #
   # It has two attributes, one for the metadata, and one for the rendered
   # output.
   Data = Struct.new(:metadata, :output)
@@ -20,7 +20,7 @@ module Metadown
 
     metadata = MetadataParser.new(text).parse
 
-    Data.new(metadata, renderer.new { text }.render)
+    Data.new(metadata, renderer.render(text))
   end
   module_function :render
 
