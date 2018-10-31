@@ -12,16 +12,16 @@ describe Metadown::Renderer do
 
   it "extracts YAML" do
     r = Redcarpet::Markdown.new(subject)
-    text = <<-MARKDOWN
----
-key: "value"
----
-hello world
-MARKDOWN
+    text = <<-MARKDOWN.strip_heredoc
+      ---
+      key: "value"
+      ---
+      hello world
+    MARKDOWN
 
     r.render text
 
-    subject.metadata.should eql({"key"=>"value"})
+    subject.metadata.should eql({ "key" => "value" })
   end
 
   it "gives {} for no metadata" do
