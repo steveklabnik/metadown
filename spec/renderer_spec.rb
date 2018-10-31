@@ -1,5 +1,4 @@
-$:.unshift("lib")
-require 'metadown/renderer'
+require "spec_helper"
 
 describe Metadown::Renderer do
   it "is a redcarpet renderer" do
@@ -19,9 +18,9 @@ key: "value"
 ---
 hello world
 MARKDOWN
-    
+
     r.render text
-    
+
     subject.metadata.should eql({"key"=>"value"})
   end
 

@@ -1,5 +1,4 @@
-$:.unshift("lib")
-require 'metadown'
+require "spec_helper"
 
 describe Metadown do
   let(:text) do

@@ -1,0 +1,2 @@
+$:.unshift("lib")
+require "metadown"
