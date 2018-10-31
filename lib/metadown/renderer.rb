@@ -1,5 +1,5 @@
-require 'redcarpet'
-require 'yaml'
+require "redcarpet"
+require "yaml"
 
 module Metadown
   # This class is our own flavor of Redcarpet. It grabs out
