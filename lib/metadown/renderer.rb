@@ -1,5 +1,4 @@
 require "redcarpet"
-require "yaml"
 
 module Metadown
   # This class is our own flavor of Redcarpet. It grabs out
@@ -10,10 +9,9 @@ module Metadown
     # to the whole text before anything else kicks off, which
     # means we can snag out the YAML at the beginning.
     def preprocess(full_document)
-      full_document =~ /^(---\s*\n.*?\n?)^(---\s*$\n?)/m
-      @metadata = YAML.load($1) if $1
-
-      $' || full_document
+      metadata_parser = MetadataParser.new(full_document)
+      @metadata = metadata_parser.metadata
+      metadata_parser.text
     end
 
     # This accessor lets us access our metadata after the

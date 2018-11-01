@@ -26,5 +26,7 @@ RSpec.describe Metadown do
       expect(data.metadata).to eql({ "key" => "value" })
       expect(data.output).to eql("<p>hello world</p>")
     end
+
+    expect(parser).to have_received(:render).with("hello world\n")
   end
 end

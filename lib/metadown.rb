@@ -17,9 +17,9 @@ module Metadown
   def render(text, renderer = nil)
     return redcarpet_render(text) if renderer.nil?
 
-    metadata = MetadataParser.new(text).parse
+    parser = MetadataParser.new(text)
 
-    Data.new(metadata, renderer.render(text))
+    Data.new(parser.metadata, renderer.render(parser.text))
   end
   module_function :render
 
