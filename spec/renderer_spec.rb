@@ -1,17 +1,19 @@
 require "spec_helper"
 
-describe Metadown::Renderer do
+RSpec.describe Metadown::Renderer do
+  subject(:renderer) { described_class.new }
+
   it "is a redcarpet renderer" do
-    subject.should be_kind_of(Redcarpet::Render::HTML)
+    expect(renderer).to be_kind_of(Redcarpet::Render::HTML)
   end
 
   it "renders markdown" do
-    r = Redcarpet::Markdown.new(subject)
-    r.render("hello world").should eql("<p>hello world</p>\n")
+    r = Redcarpet::Markdown.new(renderer)
+    expect(r.render("hello world")).to eql("<p>hello world</p>\n")
   end
 
   it "extracts YAML" do
-    r = Redcarpet::Markdown.new(subject)
+    r = Redcarpet::Markdown.new(renderer)
     text = <<-MARKDOWN.strip_heredoc
       ---
       key: "value"
@@ -21,12 +23,12 @@ describe Metadown::Renderer do
 
     r.render text
 
-    subject.metadata.should eql({ "key" => "value" })
+    expect(renderer.metadata).to eql({ "key" => "value" })
   end
 
   it "gives {} for no metadata" do
-    Redcarpet::Markdown.new(subject).render("hello world")
+    Redcarpet::Markdown.new(renderer).render("hello world")
 
-    subject.metadata.should eql({})
+    expect(renderer.metadata).to eql({})
   end
 end
