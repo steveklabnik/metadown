@@ -1,31 +1,32 @@
-$:.unshift("lib")
-require 'metadown'
+require "spec_helper"
 
-describe Metadown do
+RSpec.describe Metadown do
   let(:text) do
-    text = <<-MARKDOWN
----
-key: "value"
----
-hello world
-MARKDOWN
+    <<-MARKDOWN.strip_heredoc
+      ---
+      key: "value"
+      ---
+      hello world
+    MARKDOWN
   end
 
-  it "provides a factory" do
+  it "provides a factory", :aggregate_failures do
     Metadown.render(text).tap do |data|
-      data.should be_kind_of(Metadown::Data)
-      data.metadata.should eql({"key" => "value"})
-      data.output.should eql("<p>hello world</p>\n")
+      expect(data).to be_kind_of(Metadown::Data)
+      expect(data.metadata).to eql({ "key" => "value" })
+      expect(data.output).to eql("<p>hello world</p>\n")
     end
   end
 
-  it "allows you to inject a parser" do
-    parser = double :render => "<p>hello world</p>"
+  it "allows you to inject a parser", :aggregate_failures do
+    parser = double({ render: "<p>hello world</p>" })
 
     Metadown.render(text, parser).tap do |data|
-      data.should be_kind_of(Metadown::Data)
-      data.metadata.should eql({"key" => "value"})
-      data.output.should eql("<p>hello world</p>")
+      expect(data).to be_kind_of(Metadown::Data)
+      expect(data.metadata).to eql({ "key" => "value" })
+      expect(data.output).to eql("<p>hello world</p>")
     end
+
+    expect(parser).to have_received(:render).with("hello world\n")
   end
 end

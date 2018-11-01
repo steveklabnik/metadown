@@ -5,7 +5,6 @@ require "metadown/version"
 # This module namespaces everything in the gem. It's also where the factory
 # #render method lives.
 module Metadown
-
   # This struct is what gets returned from a call to #render.
   #
   # It has two attributes, one for the metadata, and one for the rendered
@@ -15,12 +14,12 @@ module Metadown
   # The render method is a convenient factory. If we give it text, it
   # delegates to the classic markdown renderer, otherwise, we can inject
   # one of our own.
-  def render(text, renderer=nil)
+  def render(text, renderer = nil)
     return redcarpet_render(text) if renderer.nil?
 
-    metadata = MetadataParser.new(text).parse
+    parser = MetadataParser.new(text)
 
-    Data.new(metadata, renderer.render(text))
+    Data.new(parser.metadata, renderer.render(parser.text))
   end
   module_function :render
 

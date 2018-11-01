@@ -1,0 +1,41 @@
+require: "rubocop-rspec"
+
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.2
+
+Metrics/LineLength:
+  Max: 120
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+Style/BracesAroundHashParameters:
+  EnforcedStyle: braces # Keep support for older versions of Ruby
+
+Style/Documentation:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false # Keep Support for < 2.0 versions of Ruby
+
+Style/PerlBackrefs:
+  Enabled: false # Keep support for earlier versions of Ruby
+
+Style/SpecialGlobalVars:
+  Enabled: false # Keep support for earlier versions of Ruby
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
